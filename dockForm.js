@@ -1,43 +1,68 @@
-// Dock Form Submission Handling
-document.getElementById('dockForm').addEventListener('submit', function(event) {
-  event.preventDefault();
+import { db } from './firebase';  
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
-  // Collect data from the form
-  const dockData = {
-    unload: {
-      date: document.getElementById('unloadDate').value,
-      employeeName: document.getElementById('unloadEmployeeName').value,
-      startTime: document.getElementById('startUnloadTime').value,
-      finishTime: document.getElementById('finishUnloadTime').value,
-      storeLocation: document.getElementById('storeLocation').value,
-      trailerNumber: document.getElementById('trailerNumber').value,
-      merchandise: {
-        processSherman: document.getElementById('processSherman').value,
-        rawApparelAmount: document.getElementById('rawApparelAmount').value,
-        rawHardlineAmount: document.getElementById('rawHardlineAmount').value
-      }
-    },
-    load: {
-      date: document.getElementById('loadDate').value,
-      employeeName: document.getElementById('loadEmployeeName').value,
-      startTime: document.getElementById('startLoadTime').value,
-      finishTime: document.getElementById('finishLoadTime').value,
-      destination: document.getElementById('destination').value,
-      trailerNumber: document.getElementById('trailerNumberLoad').value,
-      merchandise: {
-        apparelRacks: document.getElementById('apparelRacks').value,
-        hardlineTotes: document.getElementById('hardlineTotes').value,
-        supplies: document.querySelector('input[name="supplies"]:checked').value,
-        equipment: document.querySelector('input[name="equipment"]:checked').value
-      }
+// Función para enviar el formulario
+const dockForm = document.getElementById('dockForm');
+
+dockForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Capturando datos del formulario
+    const unloadDate = document.getElementById('unloadDate').value;
+    const employeeNameUnload = document.getElementById('unloadEmployeeName').value;
+    const startTimeUnload = document.getElementById('startUnloadTime').value;
+    const finishTimeUnload = document.getElementById('finishUnloadTime').value;
+    const storeLocation = document.getElementById('storeLocation').value;
+    const trailerNumber = document.getElementById('trailerNumber').value;
+
+    const processForSherman = document.getElementById('processSherman').value;
+    const rawDonationApparel = document.getElementById('rawApparelAmount').value;
+    const rawDonationHardlines = document.getElementById('rawHardlineAmount').value;
+
+    const loadDate = document.getElementById('loadDate').value;
+    const employeeNameLoad = document.getElementById('loadEmployeeName').value;
+    const startTimeLoad = document.getElementById('startLoadTime').value;
+    const finishTimeLoad = document.getElementById('finishLoadTime').value;
+    const destination = document.getElementById('destination').value;
+    const trailerNumberLoad = document.getElementById('trailerNumberLoad').value;
+
+    const apparelRacks = document.getElementById('apparelRacks').value;
+    const hardlinesTotes = document.getElementById('hardlineTotes').value;
+    const supplies = document.querySelector('input[name="supplies"]:checked').value;
+    const equipment = document.querySelector('input[name="equipment"]:checked').value;
+
+    // Añadir datos a Firestore con la fecha y hora actual
+    try {
+        await addDoc(collection(db, 'dock_department'), {
+            unloadDate: unloadDate,
+            employeeNameUnload: employeeNameUnload,
+            startTimeUnload: startTimeUnload,
+            finishTimeUnload: finishTimeUnload,
+            storeLocation: storeLocation,
+            trailerNumber: trailerNumber,
+            processForSherman: processForSherman,
+            rawDonationApparel: rawDonationApparel,
+            rawDonationHardlines: rawDonationHardlines,
+            loadDate: loadDate,
+            employeeNameLoad: employeeNameLoad,
+            startTimeLoad: startTimeLoad,
+            finishTimeLoad: finishTimeLoad,
+            destination: destination,
+            trailerNumberLoad: trailerNumberLoad,
+            apparelRacks: apparelRacks,
+            hardlinesTotes: hardlinesTotes,
+            supplies: supplies,
+            equipment: equipment,
+            date: Timestamp.now()  // Captura la fecha y hora actuales
+        });
+        alert("Datos guardados correctamente");
+    } catch (e) {
+        console.error("Error al guardar los datos: ", e);
+        alert("Error al guardar los datos");
     }
-  };
 
-  // Log the data (this would be replaced with a call to Firestore)
-  console.log('Dock Data:', dockData);
-
-  // Clear the form
-  document.getElementById('dockForm').reset();
+    // Reiniciar el formulario
+    dockForm.reset();
 });
 
 
