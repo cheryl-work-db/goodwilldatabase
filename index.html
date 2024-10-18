@@ -43,9 +43,6 @@
     <!-- Unload Trailer Section -->
     <h3>Unload Trailer</h3>
     
-    <label for="unloadDate">Date:</label>
-    <input type="date" id="unloadDate" name="unloadDate" required>
-
     <label for="unloadEmployeeName">Employee Name:</label>
     <input type="text" id="unloadEmployeeName" name="unloadEmployeeName" required>
 
@@ -89,9 +86,6 @@
     <!-- Load Trailer Section -->
     <h3>Load Trailer</h3>
 
-    <label for="loadDate">Date:</label>
-    <input type="date" id="loadDate" name="loadDate" required>
-
     <label for="loadEmployeeName">Employee Name:</label>
     <input type="text" id="loadEmployeeName" name="loadEmployeeName" required>
 
@@ -114,24 +108,22 @@
     <label for="hardlineTotes">Hardlines (Number of totes):</label>
     <input type="number" id="hardlineTotes" name="hardlineTotes" min="0" required>
 
-    <label>Supplies:</label>
-    <input type="radio" id="suppliesYes" name="supplies" value="yes">
-    <label for="suppliesYes">Yes</label>
-    <input type="radio" id="suppliesNo" name="supplies" value="no" checked>
-    <label for="suppliesNo">No</label>
+    <label for="supplies">Supplies:</label>
+    <input type="radio" id="suppliesYes" name="supplies" value="yes" required> Yes
+    <input type="radio" id="suppliesNo" name="supplies" value="no"> No
 
-    <label>Equipment:</label>
-    <input type="radio" id="equipmentYes" name="equipment" value="yes">
-    <label for="equipmentYes">Yes</label>
-    <input type="radio" id="equipmentNo" name="equipment" value="no" checked>
-    <label for="equipmentNo">No</label>
+    <label for="equipment">Equipment:</label>
+    <input type="radio" id="equipmentYes" name="equipment" value="yes" required> Yes
+    <input type="radio" id="equipmentNo" name="equipment" value="no"> No
 
     <button type="submit">Submit</button>
   </form>
 
-  <script src="dockForm.js"></script>
+  <script type="module" src="dockForm.js"></script>
 </body>
 </html>
+
+
 
 
 
